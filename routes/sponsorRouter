@@ -13,10 +13,10 @@ sponsorRouter.route('/')
     next();
 })
 .post((req, res) => {
-    res.end(`Will add sponsor: ${req.body.name} with description: ${req.body.description}`);
+    res.end(`POST Will add sponsor: ${req.body.name} with description: ${req.body.description}`);
 })
 .get((req, res) => {
-    res.end('Will send all sponsors');
+    res.end('GET Will send all sponsors');
 })
 .put((req, res) => {
     res.statusCode = 403;
@@ -25,6 +25,28 @@ sponsorRouter.route('/')
 .delete((req, res) => {
     res.statusCode = 403;
     res.end('DELETE operation of all sponsors is not supported');
+});
+
+sponsorRouter.route('/:sponsorId')
+
+.all((req, res, next) => {
+    res.statusCode = 200;
+    res.setHeader('Content-type', 'text/plain');
+    next();
+})
+.post((req, res) => {
+    res.end('POST command does not need sponsorId');
+})
+.get((req, res) => {
+    res.end(`GET Will send details of sponsor: ${req.params.sponsorId}`);
+})
+.put((req, res) => {
+    res.statusCode = 403;
+    res.end(`PUT Will update details of sponsor: ${req.params.sponsorId}`);
+})
+.delete((req, res) => {
+    res.statusCode = 403;
+    res.end(`DELETE Will delete sponsor: ${req.params.sponsorId}`);
 });
 
 module.exports = sponsorRouter;
