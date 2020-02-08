@@ -1,0 +1,30 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const sponsorRouter = express.Router();
+
+sponsorRouter.use(bodyParser.json());
+
+sponsorRouter.route('/')
+
+.all((req, res, next) => {
+    res.statusCode = 200;
+    res.setHeader('Content-type', 'text/plain');
+    next();
+})
+.post((req, res) => {
+    res.end(`Will add sponsor: ${req.body.name} with description: ${req.body.description}`);
+})
+.get((req, res) => {
+    res.end('Will send all sponsors');
+})
+.put((req, res) => {
+    res.statusCode = 403;
+    res.end('PUT operation with no sponsorId is not supported');
+})
+.delete((req, res) => {
+    res.statusCode = 403;
+    res.end('DELETE operation of all sponsors is not supported');
+});
+
+module.exports = sponsorRouter;
